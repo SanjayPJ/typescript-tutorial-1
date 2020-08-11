@@ -14,13 +14,18 @@ const list = new ListTemplate(ul);
 // When form submits
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    let values = [
+        tofrom.value,
+        details.value,
+        amount.valueAsNumber,
+    ];
     let doc;
     // Creating finance log object
     if (type.value === "invoice") {
-        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+        doc = new Invoice(...values);
     }
     else {
-        doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
+        doc = new Payment(...values);
     }
     // Rendering finance log to the list template
     list.render(doc, type.value, "start");
